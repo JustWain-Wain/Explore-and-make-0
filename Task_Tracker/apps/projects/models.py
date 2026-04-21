@@ -1,3 +1,9 @@
 from django.db import models
 
-# Create your models here.
+class Project(models.Model):
+    name = models.CharField(max_length=128)
+    description = models.TextField()
+    users = models.ManyToManyField('auth.User', related_name='projects')
+    tasks = models.ManyToManyField('tasks.Task', related_name='projects')
+    created_at = models.DateTimeField(auto_now_add=True)
+    deadline = models.DateTimeField(default=None)
