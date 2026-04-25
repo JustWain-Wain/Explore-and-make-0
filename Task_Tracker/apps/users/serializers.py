@@ -19,6 +19,8 @@ class UserSerializer(serializers.ModelSerializer):
 
 
     def create(self, validated_data):
+        "Пароль не должен записываться в бд"
+        
         password = validated_data.pop('password')
         user = User.objects.create_user(
             password=password,
