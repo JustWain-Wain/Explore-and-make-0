@@ -5,3 +5,6 @@ class User(AbstractUser):
     email = models.EmailField(unique=True)
     middle_name = models.CharField(max_length=128, blank=True)
     position = models.CharField(max_length=128, blank=True)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
