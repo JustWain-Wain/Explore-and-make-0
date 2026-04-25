@@ -6,6 +6,23 @@ from .permissions import TaskPermission, CommentPermission
 
 
 class TaskViewSet(ModelViewSet):
+    """
+    ViewSet для управления задачами.
+
+    CRUD:
+    - list, retrieve, create, update, destroy
+
+    Доступ:
+    - Только для участников проекта задачи
+
+    Фильтрация (query params):
+    - project — по проекту
+    - status — по статусу
+    - priority — по приоритету
+    - assignee — по исполнителю
+    - deadline_from / deadline_to — по диапазону дедлайна
+    """
+
     serializer_class = TaskSerializer
     permission_classes = [TaskPermission]
 
@@ -43,6 +60,16 @@ class TaskViewSet(ModelViewSet):
 
 
 class CommentViewSet(ModelViewSet):
+    """
+    ViewSet для управления комментариями.
+
+    CRUD:
+    - list, retrieve, create, update, destroy
+
+    Доступ:
+    - Только для участников проекта, к которому относится задача
+    """
+    
     serializer_class = CommentSerializer
     permission_classes = [CommentPermission]
 

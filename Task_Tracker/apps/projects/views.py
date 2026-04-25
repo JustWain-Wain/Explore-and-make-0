@@ -9,6 +9,21 @@ from .utils import is_owner
 
 
 class ProjectViewSet(ModelViewSet):
+    """
+    ViewSet для управления проектами.
+
+    CRUD:
+    - list, retrieve, create, update, destroy
+
+    Доступ:
+    - Только для участников проекта
+
+    Дополнительно:
+    - GET /{id}/members/ — список участников
+    - POST /{id}/members/ — добавить участника (только owner)
+    - DELETE /{id}/members/{user_id}/ — удалить участника (только owner, нельзя удалить owner)
+    """
+    
     serializer_class = ProjectSerializer
     permission_classes = [ProjectPermission]
 

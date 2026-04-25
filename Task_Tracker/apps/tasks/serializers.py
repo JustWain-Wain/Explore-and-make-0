@@ -3,6 +3,13 @@ from .models import Task, Comment
 from django.utils import timezone
 
 class TaskSerializer(serializers.ModelSerializer):
+    """
+    Сериализатор для модели Task.
+
+    Преобразует объект задачи в JSON и обратно.
+    Используется в API для создания и получения задач.
+    """
+
     class Meta:
         model = Task
         fields = [
@@ -62,6 +69,13 @@ class TaskSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
+    """
+    Сериализатор для модели Comment.
+
+    Преобразует объект комментария в JSON и обратно.
+    Используется в API для создания и получения комментариев.
+    """
+
     class Meta:
         model = Comment
         fields = [

@@ -2,6 +2,13 @@ from rest_framework import serializers
 from .models import User
 
 class UserSerializer(serializers.ModelSerializer):
+    """
+    Сериализатор для модели User.
+
+    Преобразует объект пользователя в JSON и обратно.
+    Используется в API для создания и получения пользователей.
+    """
+
     password = serializers.CharField(write_only=True)
 
     class Meta:

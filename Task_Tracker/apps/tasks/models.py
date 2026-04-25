@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 
+# Выбор статусов
 STATUS_CHOICES = [
         ('new', 'Новая'),
         ('in_progress', 'В работе'),
@@ -8,6 +9,7 @@ STATUS_CHOICES = [
         ('done', 'Завершена'),
     ]
 
+# Выбор приоритетов
 PRIORITY_CHOICES = [
     ('low', 'Низкий'),
     ('medium', 'Средний'),
@@ -16,6 +18,15 @@ PRIORITY_CHOICES = [
 ]
 
 class Task(models.Model):
+    """
+    Модель задачи в проекте.
+
+    Хранит данные:
+    название, описание, статус, приоритет
+    дата создания, дата изменения, дедлайн,
+    проект (в котором находится задача),
+    автор, исполнители.
+    """
     name = models.CharField(max_length=128)
     description = models.TextField()
     status = models.CharField(
@@ -50,6 +61,14 @@ class Task(models.Model):
 
 
 class Comment(models.Model):
+    """
+    Модель комментария к задаче.
+
+    Хранит данные:
+    задача (к которой оставлен комментарий),
+    автор комментария, текст комментария,
+    дата создания, дата изменения.
+    """
     task = models.ForeignKey(
         'Task',
         on_delete=models.CASCADE,
