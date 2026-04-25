@@ -1,18 +1,37 @@
 from rest_framework import serializers
 from .models import Project
-from datetime import datetime
+from django.utils import timezone
 
 class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
-        fields = '__all__'
+        fields = [
+            'id',
+            'name',
+            'description',
+            'members',
+            'created_at',
+            'changed_at',
+            'deadline'
+        ]
+        read_only_fields = ['id', 'created_at', 'changed_at']
+
+
+    def validate_name(self, name):
+        "Проверка длины заголовка"
+        
+        if len(name.strip()) < 3:
+            raise serializers.ValidationError(
+                "Заголовок слишком короткий"
+            )
+        return name
+
 
     def validate_deadline(self, deadline):
-        if deadline <= datetime.now():
-            raise serializers.ValidationError("Дедлайн не может быть в прошлом")
+        "Проверка даты окончания проекта"
+
+        if deadline and deadline <= timezone.now():
+            raise serializers.ValidationError(
+                "Дедлайн не может быть в прошлом"
+            )
         return deadline
-    
-    def validate_creation_date(self, created_at):
-        if created_at > datetime.now():
-            raise serializers.ValidationError("Дата создания должна быть в настоящем или прошлом")
-        return created_at
