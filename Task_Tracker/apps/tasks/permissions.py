@@ -8,10 +8,6 @@ class TaskPermission(BasePermission):
     Используется для ограничения доступа к задачам.
     """
 
-    def has_permission(self, request, view):
-        """Проверяет, что пользователь существует и авторизован."""
-        return request.user and request.user.is_authenticated
-
     def has_object_permission(self, request, view, obj):
         """Проверяет, что пользователь участник проекта и исполнитель задачи."""
         user = request.user

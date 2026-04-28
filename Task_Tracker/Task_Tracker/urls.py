@@ -5,11 +5,13 @@ from rest_framework.routers import DefaultRouter
 from rest_framework.schemas import get_schema_view
 from apps.projects.views import ProjectViewSet
 from apps.tasks.views import TaskViewSet, CommentViewSet
+from apps.users.views import UserViewSet
 
 router = DefaultRouter()
 router.register('projects', ProjectViewSet, basename='projects')
 router.register('tasks', TaskViewSet, basename='tasks')
 router.register('comments', CommentViewSet, basename='comments')
+router.register('users', UserViewSet, basename='users')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

@@ -10,10 +10,16 @@
   <div id="swagger-ui"></div>
   <script src="https://unpkg.com/swagger-ui-dist@5/swagger-ui-bundle.js"></script>
   <script>
+    const token = "a17a5fa09251ddaa853edf7ccccff5bf478b1a82";
+
     window.ui = SwaggerUIBundle({
       url: "/api/schema/",
       dom_id: "#swagger-ui",
-      deepLinking: true
+      deepLinking: true,
+      requestInterceptor: (req) => {
+        req.headers['Authorization'] = 'Token ' + token;
+        return req;
+      }
     });
   </script>
 </body>

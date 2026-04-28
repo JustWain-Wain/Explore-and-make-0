@@ -45,18 +45,18 @@ class Task(models.Model):
 
     project = models.ForeignKey(
         'projects.Project',
-        related_name='tasks',
+        related_name='projects',
         on_delete=models.CASCADE
     )
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        related_name='tasks',
+        related_name='created_tasks',
         on_delete=models.CASCADE
     )
     assignee = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        related_name='assigned_tasks'
+        related_name='assigned_tasks',
+        on_delete=models.CASCADE
     )
 
 

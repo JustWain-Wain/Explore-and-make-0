@@ -5,7 +5,6 @@ from rest_framework.viewsets import ModelViewSet
 from .models import Project, ProjectMember
 from .permissions import ProjectPermission
 from .serializers import ProjectSerializer, ProjectMemberSerializer
-from .utils import is_owner
 
 
 class ProjectViewSet(ModelViewSet):
@@ -39,8 +38,14 @@ class ProjectViewSet(ModelViewSet):
             queryset = project.project_memberships.select_related('user').all()
             serializer = ProjectMemberSerializer(queryset, many=True)
             return Response(serializer.data)
+        
+        is_owner = ProjectMember.objects.filter(
+            user=request.user,
+            project=project,
+            role='owner'
+        ).exists()
 
-        if not is_owner(request.user, project):
+        if not is_owner:
             return Response(
                 {'detail': 'Только владелец проекта может добавлять участников.'},
                 status=status.HTTP_403_FORBIDDEN,
